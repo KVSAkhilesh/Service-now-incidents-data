@@ -1,0 +1,49 @@
+Incidents occurred more than 100 times,,
+short_description,frequency ,incident_category
+[ctssd(16086)]CRS-2412:The Cluster Time Synchronization Service detects that the local time is significantly different from the mean cluster time. Details in /u01/crs/grid/product/11.2.0/crs/log/oradb2/ctssd/octssd.log. ,300,Cluster time sync
+96% of background dump area is used.,176,ORA_error stack
+96% of core dump area is used.,190,ORA_error stack
+96% of user dump area is used.,190,ORA_error stack
+"Agent is unable to communicate with the OMS. (REASON = Agent is Unreachable (REASON : Agent to OMS Communication is broken. Failure connecting to https://818125-d-ora13cgc.ord1.corp.rackspace.com:4903/empbs/upload , err ",229,Unable to commute agent
+Agent is unable to communicate with the OMS. (REASON = Agent is Unreachable (REASON : Agent to OMS Communication is broken. OMS platform services are not available ).,243,Unable to commute agent
+Agent Unreachable cleared.,1302,ORA_error stack
+Backup failure: brmrpt2 (node 2) on 502834-a-BRMrptg2.ord1.rackspace.com,114,Backup failure
+Backup failure: FR.QDAR EPM Hyperion (EPM) node 2 on 616388-p-oracle2.rackspace.corp,232,Hyperion Backup Failure
+Backup failure: FR.QDAR HFM Hyperion (FDM) node 2) on 616388-p-oracle2.rackspace.corp,232,Hyperion Backup Failure
+Backup failure: IT.QDAR RackerApp RackerApp / Utility (RAC) on 483781-OracleClus5.rackspace.com,241,Backup failure
+Backup failure: POCDM on pbidbs1.ord.ocdm.rackspace.com,653,Backup failure
+Backup failure: RR.QDAR BRM/BIP BRM Prod (RAC) on 502891-OracleClus1.rackspace.com,652,Backup failure
+Backup failure: RR.QDAR CM PRAXDFW (node 1) on oradb1.dfw1.corp.rackspace.com,112,Backup failure
+Backup failure: RR.QDAR CM PRAXDFW (node 2) on oradb2.dfw1.corp.rackspace.com,285,Backup failure
+Backup failure: RR.QDAR CM PRAXDFW (RAC) on praxdfw-scan.dfw1,575,Backup failure
+Backup failure: RR.QDAR UMS Usage (RAC) on 502893-OracleClus3.rackspace.com,307,Backup failure
+Failed to connect to ASM instance. The connection is closed: The connection is closed,1770,ORA_error stack
+"Failed to connect to database instance: Failed to connect: java.sql.SQLException: Listener refused the connection with the following error: ORA-12528, TNS:listener: all appropriate instances are blocking new connections ",101,ORA_error stack
+Incident severity is Warning and has 5 events,169,ORA_error stack
+Internal error detected: java.lang.IllegalStateException:oracle.sysman.gcagent.target.interaction.execution.ConfigStateMgr:824.,1211,ORA_error stack
+Internal error detected: java.lang.NumberFormatException:sun.misc.FloatingDecimal:1222::oracle.sysman.emSDK.agent.sql.SqlConnection:586.,398,ORA_error stack
+"Listener response to a TNS ping is 5,010 msecs",150,ORA_error stack
+Metrics Global Cache Blocks Lost is at 2,209,Cache Blocks Lost
+Metrics Global Cache Blocks Lost is at 204,115,Cache Blocks Lost
+Metrics Global Cache Blocks Lost is at 663,101,Cache Blocks Lost
+ORA-error stack (07445[LdiDateCompare()+36]) logged in /u01/app/oracle/diag/rdbms/brmprd/brmprd2/trace/alert_brmprd2.log.,222,ORA_error stack
+ORA-error stack (07445[LdiDateCompare()+36]) logged in /u01/app/oracle/diag/rdbms/brmprd/brmprd3/trace/alert_brmprd3.log.,110,ORA_error stack
+"ORA-error stack (4,030) logged in /u01/app/oracle/diag/rdbms/praxord/praxord1/trace/alert_praxord1.log.",246,ORA_error stack
+"ORA-error stack (4,031) logged in /u01/app/grid/diag/asm/+asm/+ASM1/trace/alert_+ASM1.log.",243,ORA_error stack
+"ORA-error stack (4,031) logged in /u01/app/grid/diag/asm/+asm/+ASM2/trace/alert_+ASM2.log.",106,ORA_error stack
+ORA-error stack (60) logged in /u01/app/oracle/diag/rdbms/brmd3/brmd3/trace/alert_brmd3.log.,251,ORA_error stack
+ORA-error stack (60) logged in /u01/app/oracle/diag/rdbms/brmtest/brmtest/trace/alert_brmtest.log.,1051,ORA_error stack
+ORA-error stack (60) logged in /u01/app/oracle/diag/rdbms/brmtest1/brmtest1/trace/alert_brmtest1.log.,800,ORA_error stack
+ora.net1.network has 0 instances in OFFLINE State,102,ORA_error stack
+ora.ons has 0 instances in OFFLINE State,113,ORA_error stack
+ora.scan1.vip has 1 instances in OFFLINE State,121,ORA_error stack
+Session blocked for > 20 minutes!,1041,ORA_error stack
+Status Pending,178,ORA_error stack
+The current status of the target is Agent Unreachable,116,ORA_error stack
+The current status of the target is Down,324,ORA_error stack
+The current status of the target is Up,299,ORA_error stack
+The database status is UNKNOWN.,313,ORA_error stack
+TNS-1189. Please check log for details.,168,ORA_error stack
+User SYS logged on from pbidbs1.ord.ocdm.rackspace.com.,122,ORA_error stack
+,,
+Incidents occurred less than 100 times,,
