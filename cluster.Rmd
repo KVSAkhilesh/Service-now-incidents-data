@@ -1,0 +1,144 @@
+---
+title: "Cluster of incidents"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+orac <- read.csv("C:/Users/Akhilesh/Downloads/oracle.csv")
+```
+
+```{r}
+str(orac)
+```
+
+```{r}
+library(janitor)
+agg_sort <- tabyl(orac$short_description, sort = TRUE)
+
+g_100 <- agg_sort[agg_sort$n > 100,]
+
+
+dis <- g_100$`orac$short_description`
+str(dis)
+dis <- as.character(dis)
+```
+```{r}
+require(tidyverse)
+require(tidytext)
+```
+```{r}
+doc_length = sapply(dis, function(x) nchar(x), simplify=TRUE)
+# sum(doc_length == 0)    # 2934 empty rows!
+dis1 = dis[as.numeric(doc_length) > 0]
+
+# build df format for the analysis object
+mydata = data_frame(docID =seq(1:length(dis1)), text = dis1)
+str(mydata)
+```
+```{r}
+#require(tidyverse)
+#require(tidytext)
+
+my_dtm = mydata %>% unnest_tokens(word, text) %>% 
+        anti_join(stop_words) %>% 
+        group_by(docID) %>% 
+            count(word) %>% 
+        ungroup() %>%
+        cast_dtm(docID, word, n)
+```
+```{r}
+class(my_dtm) 
+```
+```{r}
+run_kmeans_scree <- function(mydata, max_clus=15){
+
+ set.seed(seed = 0000)   # set seed for reproducible work
+ wss <- (nrow(mydata)-1)*sum(apply(mydata,2,var))  # wss is within group sum of squares
+
+ for (i in 2:max_clus) wss[i] <- sum(      # checking model fit for 2 to 15 clusters
+                            kmeans(mydata,  centers = i)$withinss)  # note use of kmeans() func
+
+ # windows()    # opens a new window for plots
+ plot(1:max_clus, wss, type="b", 
+     xlab="Number of Clusters",
+     ylab="Within groups sum of squares")
+
+ }  # func ends
+
+# now run kmeans_scree on my_dtm thus:
+system.time({
+ run_kmeans_scree(my_dtm, max_clus=10) 
+ })  
+```
+from the above plot we can see that number of clusters we can form is 4 and 6 there is high steep.
+
+
+```{r}
+K = 6   # optimal num of clusters from scree plot
+system.time({
+ set.seed(seed = 0000) 
+ clus_obj = kmeans(my_dtm,  centers = K)    # clus_obj contains the clustering output. try '?kmeans'
+ })
+```
+
+```{r}
+table(clus_obj$cluster)
+```
+```{r}
+clus_dtm = vector(mode="list", length=K)    
+
+for (i1 in 1:length(clus_dtm)){
+  a100 = my_dtm[(clus_obj$cluster == i1),]   # retain only docs in cluster i1
+    a101 = apply(a100, 2, sum)     # checking to see if any token-colms are empty here
+    a102 = a100[, (as.numeric(a101) > 0)]   # drop empty columns
+  clus_dtm[[i1]] = a102 
+}
+
+```
+```{r}
+# sourcing funcs from github
+source("https://raw.githubusercontent.com/sudhir-voleti/code-chunks/master/basic%20text%20an%20funcs.txt")
+
+# building wordclouds by cluster
+for (i1 in 1:K){
+  wcount = apply(clus_dtm[[i1]], 2, sum)
+  title1 = paste0("Wordcloud for cluster ",i1)
+  # windows()
+  dtm.word.cloud(count=wcount, title=title1, max_words=80)
+ }
+```
+```{r}
+g_100 <- cbind(g_100, clusterNum = clus_obj$cluster)
+head(g_100)
+```
+
+```{r}
+subcluster1 <- g_100
+for(i in 1:nrow(g_100))
+  print(i)
+  {
+  if(g_100$clusterNum[i]==1){
+    g_100$incident_category[i]<-"ORA_error stack"
+  }
+  else if(g_100$clusterNum[i]==2){
+    g_100$incident_category[i]<-"Backup failure"
+  }
+  else if(g_100$clusterNum[i]==3){
+    g_100$incident_category[i]<-"Unable to commute agent"
+  }
+  else if(g_100$clusterNum[i]==4){
+    g_100$incident_category[i]<-"Cache Blocks Lost"
+  }
+  else if(g_100$clusterNum[i]==5){
+    g_100$incident_category[i]<-"Cluster time sync"
+  }else{
+    g_100$incident_category[i]<-"Hyperion Backup Failure"  
+  }
+}
+```
+```{r}
+write.csv(g_100,"C:/Users/Akhilesh/Downloads/wordcloud of tech m/Final datasets/freq_gret_100.csv")
+```
+
